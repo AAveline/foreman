@@ -1,0 +1,21 @@
+{
+  "name": "foreman",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "bin": {
+    "foreman": "./lib/index.js"
+  },
+  "dependencies": {
+    "@types/node": "^14.0.23",
+    "@types/shelljs": "^0.8.8",
+    "chalk": "^4.1.0",
+    "commander": "^5.1.0",
+    "progress": "^2.0.3",
+    "shelljs": "^0.8.4",
+    "typescript": "^3.9.6"
+  }
+}
