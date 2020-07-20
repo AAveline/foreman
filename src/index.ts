@@ -1,10 +1,10 @@
 import { cd, exec } from 'shelljs';
 import { program } from 'commander';
-import * as chalk from 'chalk';
 import * as fs from 'fs';
 
 import { Project } from './types';
 
+const chalk = require('chalk');
 const ProgressBar = require('progress');
 const { log } = console;
 
@@ -23,9 +23,7 @@ let allDependencies: { [key: string]: string[][] } = {};
 
 for (const [project, path] of Object.entries(projects)) {
   cd(path);
-  const a = JSON.parse(exec('npm list --json', { silent: true }) as any);
-
-  const dependencies = a.dependencies;
+  const { dependencies } = JSON.parse(exec('npm list --json', { silent: true }) as any);
 
   for (const [key, val] of Object.entries(dependencies)) {
     const { version, required } = val as any;
@@ -34,7 +32,7 @@ for (const [project, path] of Object.entries(projects)) {
 
     if (computedVersion) {
       const [major, minor, patch] = computedVersion.replace(/^(\^)?(>=)?(\*)?/, '').split('.');
-      finalVersion = Number(`${major}${minor}.${patch}`);
+      finalVersion = Number(`${major}${('000' + minor).slice(-4)}.${patch}`);
     }
 
     allDependencies[key] = allDependencies[key] ? [
